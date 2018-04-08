@@ -5,18 +5,6 @@ using System.Web;
 
 namespace Usermvc.Models
 {
-    //public class COUNTRY
-    //{
-    //    public int id { get; set; }
-    //    public int Country { get; set; }
-    //}
-
-    //public class STATE
-    //{
-    //    public int id { get; set; }
-    //    public int StateName { get; set; }
-    //}
-
     public class USER
     {
         public int id { get; set; }
