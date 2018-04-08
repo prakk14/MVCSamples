@@ -16,9 +16,6 @@ namespace Usermvc.ViewModels
         [Required(ErrorMessage = "Username is required")]
         [StringLength(150)]
         public string Username { get; set; }
-        
-        public int CountryID { get; set; }
-        public int StateID { get; set; }
 
         [Required(ErrorMessage = "Email is required")]
         [DisplayName("Email")]        

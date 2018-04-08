@@ -37,9 +37,7 @@ namespace Usermvc.Controllers
                         vwUSER objUser = new vwUSER();
                         objUser.id = Convert.ToInt32(objRe["id"]);
                         objUser.Username = Convert.ToString(objRe["Username"]);
-                        objUser.EmailID = Convert.ToString(objRe["EmailID"]);
-                        objUser.CountryID = Convert.ToInt32(objRe["CountryID"]);
-                        objUser.StateID = Convert.ToInt32(objRe["StateID"]);
+                        objUser.EmailID = Convert.ToString(objRe["EmailID"]);                        
                         objUser.CountryName = Convert.ToString(objRe["Country"]);
                         objUser.StateName = Convert.ToString(objRe["StateName"]);
                         objUser.Active = Convert.ToBoolean(objRe["Active"]);
@@ -130,9 +128,7 @@ namespace Usermvc.Controllers
                     {
                         objUser.id = Convert.ToInt32(objRe["id"]);
                         objUser.Username = Convert.ToString(objRe["Username"]);
-                        objUser.EmailID = Convert.ToString(objRe["EmailID"]);
-                        objUser.CountryID = Convert.ToInt32(objRe["CountryID"]);
-                        objUser.StateID = Convert.ToInt32(objRe["StateID"]);
+                        objUser.EmailID = Convert.ToString(objRe["EmailID"]);                       
                         objUser.CountryName = Convert.ToString(objRe["CountryID"]);
                         objUser.StateName = Convert.ToString(objRe["StateID"]);
                         objUser.Active = Convert.ToBoolean(objRe["Active"]);
@@ -175,7 +171,7 @@ namespace Usermvc.Controllers
                     SqlCommand objCmdS = new SqlCommand(qryUsersS, objConnS);
 
                     objConnS.Open();
-                    objCmdS.Parameters.AddWithValue("@CountryID", objUser.CountryID);
+                    objCmdS.Parameters.AddWithValue("@CountryID", objUser.CountryName);
                     SqlDataReader objReS = objCmdS.ExecuteReader();
                     while (objReS.Read())
                     {
@@ -192,8 +188,8 @@ namespace Usermvc.Controllers
 
                 lstCountryItem.Add(new SelectListItem() { Value="0",Text="--Select Country--"});
                 lstStateItem.Add(new SelectListItem() { Value = "0", Text = "--Select State--" });
-                lstCountryItem.Find(m => m.Value == Convert.ToString(objUser.CountryID)).Selected = true;
-                lstStateItem.Find(m => m.Value == Convert.ToString(objUser.StateID)).Selected = true;
+                lstCountryItem.Find(m => m.Value == Convert.ToString(objUser.CountryName)).Selected = true;
+                lstStateItem.Find(m => m.Value == Convert.ToString(objUser.StateName)).Selected = true;
 
                 objUser.lstCountry = new SelectList(lstCountryItem, "Value", "Text");
                 objUser.lstState = new SelectList(lstStateItem, "Value", "Text");
@@ -265,9 +261,7 @@ namespace Usermvc.Controllers
                     {   
                         objUser.id = Convert.ToInt32(objRe["id"]);
                         objUser.Username = Convert.ToString(objRe["Username"]);
-                        objUser.EmailID = Convert.ToString(objRe["EmailID"]);
-                        objUser.CountryID = Convert.ToInt32(objRe["CountryID"]);
-                        objUser.StateID = Convert.ToInt32(objRe["StateID"]);
+                        objUser.EmailID = Convert.ToString(objRe["EmailID"]);                        
                         objUser.CountryName = Convert.ToString(objRe["Country"]);
                         objUser.StateName = Convert.ToString(objRe["StateName"]);
                         objUser.Active = Convert.ToBoolean(objRe["Active"]);
@@ -303,9 +297,7 @@ namespace Usermvc.Controllers
                     {  
                         objUser.id = Convert.ToInt32(objRe["id"]);
                         objUser.Username = Convert.ToString(objRe["Username"]);
-                        objUser.EmailID = Convert.ToString(objRe["EmailID"]);
-                        objUser.CountryID = Convert.ToInt32(objRe["CountryID"]);
-                        objUser.StateID = Convert.ToInt32(objRe["StateID"]);
+                        objUser.EmailID = Convert.ToString(objRe["EmailID"]);                        
                         objUser.CountryName = Convert.ToString(objRe["Country"]);
                         objUser.StateName = Convert.ToString(objRe["StateName"]);
                         objUser.Active = Convert.ToBoolean(objRe["Active"]);                        
