@@ -1,0 +1,130 @@
+﻿@model Usermvc.ViewModels.vwUSER
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit/Update User</title>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        
+        <div class="form-horizontal">
+            <h4>Edit/Update User</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.id)
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Active)
+                        @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.CountryName, Model.lstCountry, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CountryName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                @Html.LabelFor(model => model.StateName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.StateName, Model.lstState, new { htmlAttributes = new { @class = "form-control" } })                    
+                    @Html.ValidationMessageFor(model => model.StateName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+    
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+    
+    <div>
+        @Html.ActionLink("Back to List", "Users")
+    </div>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />    
+    
+    <script>
+
+        $(function () {
+            $("#CountryName").change(function () {
+                var CountryName = $('#CountryName :selected').val();
+                CountryName = CountryName == "" ? 0 : CountryName;
+                //When select 'optionLabel' we need to reset it to default as well. So not need 
+                //travel back to server.
+                if (CountryName == "") {
+                    $('#StateName').empty();
+                    $('#StateName').append('<option value="">--Select a State--</option>');
+                    return;
+                }
+
+                //This is where the dropdownlist cascading main function
+                $.ajax({
+                    type: "POST",
+                    url: "../State",                            //Your Action name in the DropDownListConstroller.cs
+                    data: "{'pCountry':'" + CountryName + "'}",  //Parameter in this function, Is cast sensitive and also type must be string
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+
+                }).done(function (data) {
+                    //When succeeded get data from server construct the dropdownlist here.
+                    if (data != null) {
+
+                        $('#StateName').empty();
+                        $('#StateName').append('<option value="0">--Select State--</option>');
+                        $.each(data.lstStateItem, function (index, data) {
+                            $('#StateName').append('<option value="' + data.Value + '">' + data.Text + '</option>');
+                        });
+                    }
+                }).fail(function (response) {
+                    if (response.status != 0) {
+                        alert(response.status + " " + response.statusText);
+                    }
+                });
+
+            });
+        });
+
+    </script>
+
+</body>
+</html>

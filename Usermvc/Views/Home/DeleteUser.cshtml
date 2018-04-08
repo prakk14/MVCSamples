@@ -1,0 +1,78 @@
+﻿@model Usermvc.ViewModels.vwUSER
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete User</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Delete User</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Username)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Username)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.EmailID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.EmailID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Active)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Active)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.CountryName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.CountryName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.StateName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.StateName)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Users")
+            </div>
+        }
+    </div>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+</body>
+</html>
